@@ -9,7 +9,7 @@
 
 //#define SHOW_HUD_PLAY
 
-#import "multiVideoPlayer.h"
+#import "MrVideoPlayer.h"
 #import "ActivityView.h"
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)

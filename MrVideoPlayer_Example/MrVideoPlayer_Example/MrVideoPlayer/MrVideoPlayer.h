@@ -29,7 +29,7 @@ typedef enum
 
 @class playerView;
 
-@protocol multiVideoPlayerDeligate <NSObject>
+@protocol MrVideoPlayerDeligate <NSObject>
 @optional
 - (void)playerShouldPause;
 - (void)playerShouldResume;
@@ -106,6 +106,6 @@ typedef enum
 @property (strong, nonatomic) playerView *videoPlayerView;
 @property (nonatomic) videoOrientation Orinetation;
 @property (nonatomic, strong) UIButton *customBtn;
-@property (nonatomic, strong) id<multiVideoPlayerDeligate> delegate;
+@property (nonatomic, strong) id<MrVideoPlayerDeligate> delegate;
 
 @end
