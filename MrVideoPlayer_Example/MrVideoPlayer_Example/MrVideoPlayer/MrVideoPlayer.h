@@ -41,7 +41,7 @@ typedef enum
 
 @end
 
-@interface multiVideoPlayer : NSObject
+@interface MrVideoPlayer : NSObject
 {
     BOOL playing;
     UISlider *videoSlider;

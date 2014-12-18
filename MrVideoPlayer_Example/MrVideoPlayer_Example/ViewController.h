@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ViewController : UIViewController
-
-
+#import "MrVideoPlayer.h"
+@interface ViewController : UIViewController<MrVideoPlayerDeligate>
+@property (strong,nonatomic)MrVideoPlayer *myPlayer;
 @end
 

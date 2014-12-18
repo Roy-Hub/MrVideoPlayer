@@ -22,7 +22,7 @@ const unsigned int kplayPauseBtnSide  = 27;
 
 //#define PresiseSeekTRIAL
 
-@interface multiVideoPlayer()
+@interface MrVideoPlayer()
 {
     NSTimer *TimerForSeekBar;
     int pendingHide;
@@ -87,7 +87,7 @@ const unsigned int kplayPauseBtnSide  = 27;
 @end
 
 
-@implementation multiVideoPlayer
+@implementation MrVideoPlayer
 
 @synthesize duration;
 @synthesize playerItem;
