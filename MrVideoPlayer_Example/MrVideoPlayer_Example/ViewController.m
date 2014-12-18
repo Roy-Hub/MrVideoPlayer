@@ -48,7 +48,7 @@
     width_MAX = CGRectGetWidth(videoContainerFrame);
     height_MAX = CGRectGetHeight(videoContainerFrame);
     
-    [self.widthSlider setMinimumValue:50.0];
+    [self.widthSlider setMinimumValue:90.0];
     [self.heightSlider setMinimumValue:70.0];
     
     [self.widthSlider setMaximumValue:width_MAX];
