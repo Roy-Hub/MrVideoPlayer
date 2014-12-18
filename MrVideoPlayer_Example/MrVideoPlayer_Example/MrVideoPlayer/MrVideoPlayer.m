@@ -523,9 +523,6 @@ const unsigned int kplayPauseBtnSide  = 27;
 {
     if(self.displayingVideo)
     {
-#ifdef SUPPORT_STREAMING
-        [activity hideActivity];
-#endif
         playing = NO;
         [self.player pause];
         [playPause setImage:playIcon forState:UIControlStateNormal];

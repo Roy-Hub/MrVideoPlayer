@@ -126,10 +126,34 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAY-0j-Emf" userLabel="VideoContainer">
                                 <rect key="frame" x="0.0" y="20" width="320" height="382"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vs1-p7-FQT" userLabel="ToolbarView">
+                                        <rect key="frame" x="0.0" y="342" width="320" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="LhG-8G-3ol"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Vs1-p7-FQT" firstAttribute="leading" secondItem="cAY-0j-Emf" secondAttribute="leading" id="d3S-ug-fFy"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vs1-p7-FQT" secondAttribute="trailing" id="nYG-Ee-lyU"/>
+                                    <constraint firstAttribute="bottom" secondItem="Vs1-p7-FQT" secondAttribute="bottom" id="rP5-R0-DMu"/>
+                                </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2VQ-bF-vqQ">
+                                <rect key="frame" x="20" y="449" width="113" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Attach ToolBar">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="attachToolbarBtnAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1ds-dV-4Kk"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5n-Lt-8zj">
-                                <rect key="frame" x="20" y="426" width="87" height="33"/>
+                                <rect key="frame" x="20" y="402" width="87" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Randomize">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -146,11 +170,13 @@
                             <constraint firstItem="Fiy-Xi-T6e" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h5n-Lt-8zj" secondAttribute="trailing" priority="900" constant="8" id="6TW-3z-0Y0"/>
                             <constraint firstItem="cAY-0j-Emf" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="6wC-xu-vIG"/>
                             <constraint firstAttribute="trailing" secondItem="bci-48-wnI" secondAttribute="trailing" constant="16" id="7o0-E7-JZq"/>
+                            <constraint firstItem="y3o-3W-eWM" firstAttribute="leading" secondItem="2VQ-bF-vqQ" secondAttribute="leading" id="Ayq-ld-ezT"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="y3o-3W-eWM" secondAttribute="bottom" constant="20" id="CKb-Fu-G5q"/>
                             <constraint firstItem="y3o-3W-eWM" firstAttribute="top" secondItem="ihw-Q3-32t" secondAttribute="bottom" constant="12" id="HdQ-N3-qBa"/>
+                            <constraint firstItem="Fiy-Xi-T6e" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2VQ-bF-vqQ" secondAttribute="trailing" priority="900" constant="8" id="KXQ-jo-0Db"/>
                             <constraint firstAttribute="trailing" secondItem="Fiy-Xi-T6e" secondAttribute="trailing" constant="16" id="NAS-MU-hXQ"/>
                             <constraint firstItem="cAY-0j-Emf" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="QVp-M6-tz6"/>
-                            <constraint firstItem="Fiy-Xi-T6e" firstAttribute="centerY" secondItem="h5n-Lt-8zj" secondAttribute="centerY" id="bmR-w6-8Rr"/>
+                            <constraint firstItem="h5n-Lt-8zj" firstAttribute="top" secondItem="Fiy-Xi-T6e" secondAttribute="top" id="W1f-aa-1n0"/>
                             <constraint firstItem="y3o-3W-eWM" firstAttribute="width" secondItem="ihw-Q3-32t" secondAttribute="width" id="dW6-Ve-DjR"/>
                             <constraint firstItem="y3o-3W-eWM" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" id="e61-20-I3W"/>
                             <constraint firstAttribute="trailing" secondItem="cAY-0j-Emf" secondAttribute="trailing" id="heu-eK-4dP"/>
@@ -158,6 +184,7 @@
                             <constraint firstItem="bci-48-wnI" firstAttribute="leading" secondItem="y3o-3W-eWM" secondAttribute="trailing" constant="8" id="kiv-m7-X72"/>
                             <constraint firstItem="Fiy-Xi-T6e" firstAttribute="top" secondItem="cAY-0j-Emf" secondAttribute="bottom" id="lM4-Sd-TKU"/>
                             <constraint firstItem="1uH-nZ-GtC" firstAttribute="leading" secondItem="bci-48-wnI" secondAttribute="leading" id="lRJ-IL-RTn"/>
+                            <constraint firstItem="2VQ-bF-vqQ" firstAttribute="bottom" secondItem="Fiy-Xi-T6e" secondAttribute="bottom" id="mrf-ra-XMZ"/>
                             <constraint firstItem="y3o-3W-eWM" firstAttribute="height" secondItem="ihw-Q3-32t" secondAttribute="height" id="odZ-M3-Z3k"/>
                             <constraint firstItem="1uH-nZ-GtC" firstAttribute="top" secondItem="Fiy-Xi-T6e" secondAttribute="bottom" constant="8" id="x3N-4F-R1U"/>
                             <constraint firstItem="y3o-3W-eWM" firstAttribute="leading" secondItem="h5n-Lt-8zj" secondAttribute="leading" id="xCm-P4-M1S"/>
@@ -165,7 +192,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="attachToolbarBtn" destination="2VQ-bF-vqQ" id="IPd-du-K0g"/>
                         <outlet property="heightSlider" destination="bci-48-wnI" id="EKU-Ss-1ox"/>
+                        <outlet property="toolbarView" destination="Vs1-p7-FQT" id="hcy-39-EVN"/>
                         <outlet property="videoContainerView" destination="cAY-0j-Emf" id="6VL-4f-S1r"/>
                         <outlet property="widthSlider" destination="1uH-nZ-GtC" id="WOH-Bm-JV7"/>
                     </connections>
