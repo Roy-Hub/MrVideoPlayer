@@ -49,9 +49,7 @@ const unsigned int kplayPauseBtnSide  = 27;
     UIImage *pauseIcon;
     UIView *titleView;
     NSString *playerTitle;
-#ifdef SUPPORT_STREAMING
     ActivityView *activity;
-#endif
 }
 -(IBAction)muteOrUnmuteBtnAction:(id)sender;
 -(void)playPauseBtnAction:(id)sender;
@@ -199,9 +197,7 @@ const unsigned int kplayPauseBtnSide  = 27;
 
 -(BOOL)displayPlayerinView:(UIView *)theView inframe:(CGRect)frame
 {
-#ifdef SUPPORT_STREAMING
     [self removeObservers];
-#endif
    if(URLset || isAssetSet)
     {
         if(!isAssetSet)
@@ -211,11 +207,10 @@ const unsigned int kplayPauseBtnSide  = 27;
             self.playerItem = [[AVPlayerItem alloc]initWithAsset:self.asset];
             self.player     = [[AVPlayer alloc]initWithPlayerItem:self.playerItem];
         }
-#ifdef SUPPORT_STREAMING
         if(!activity)
             activity = [[ActivityView alloc]init];
         [self addObservers];
-#endif
+
         self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
         
         avPlayerNotification = [NSNotificationCenter defaultCenter];
@@ -1032,7 +1027,6 @@ const unsigned int kplayPauseBtnSide  = 27;
 }
 #pragma mark Observer
 
-#ifdef SUPPORT_STREAMING
 /**
  *  Adds required observers to handle streaming
  */
@@ -1108,5 +1102,4 @@ const unsigned int kplayPauseBtnSide  = 27;
         }
     }
 }
-#endif
 @end

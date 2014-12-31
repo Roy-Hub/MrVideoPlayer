@@ -8,14 +8,10 @@
 
 //#define VIDEO_FRAME
 
-#define STREAM SUPPORT
- 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <UIKit/UIKit.h>
-
-#define SUPPORT_STREAMING
 
 typedef enum
 {
@@ -24,8 +20,6 @@ typedef enum
     videoOrientation_landscapeLeft,
     videoOrientation_landscapeRight
 } videoOrientation;
-
-
 
 @class playerView;
 
