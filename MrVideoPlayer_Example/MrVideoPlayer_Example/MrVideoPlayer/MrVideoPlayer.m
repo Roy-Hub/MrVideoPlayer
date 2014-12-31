@@ -20,7 +20,7 @@
 const unsigned int kmuteUnmuteBtnSide = 27;
 const unsigned int kplayPauseBtnSide  = 27;
 
-//#define PresiseSeekTRIAL
+#define NEW_MUTE_UNMUTE
 
 @interface MrVideoPlayer()
 {
@@ -33,9 +33,6 @@ const unsigned int kplayPauseBtnSide  = 27;
     UIImage *muteImage;
     UIImage *unmuteImage;
     NSNotificationCenter *avPlayerNotification;
-#ifdef PresiseSeekTRIAL
-    BOOL freezeSlider;
-#endif
     BOOL isAssetSet;
     BOOL isCustomButtonExists;
     BOOL isMuteBtnVisible;
@@ -106,9 +103,6 @@ const unsigned int kplayPauseBtnSide  = 27;
 
     _Orinetation         = videoOrientation_portrait;
 
-#ifdef PresiseSeekTRIAL
-    freezeSlider = YES;
-#endif
     _isToolbarSeparatorsVisibile = YES;
 
     isToolBarAttached = YES;
@@ -327,10 +321,7 @@ const unsigned int kplayPauseBtnSide  = 27;
         self.videoMuted = NO;
 }
 
--(void)muteAudio
-{
-    [self setVolume:0.0f];
-}
+
 
 -(void)getHardwareVolume
 {
@@ -345,14 +336,28 @@ const unsigned int kplayPauseBtnSide  = 27;
     NSLog(@"Current hardeware Volume = %f", hardwareVolume);
 }
 
+-(void)muteAudio
+{
+#ifdef NEW_MUTE_UNMUTE
+    [self.player setMuted:YES];
+    [self updateMuteUnmuteBtn];
+#else
+    [self setVolume:0.0f];
+#endif
+}
 
 -(void)unmuteAudio
 {
+#ifdef NEW_MUTE_UNMUTE
+    [self.player setMuted:NO];
+    [self updateMuteUnmuteBtn];
+#else
     [self getHardwareVolume];
     if(hardwareVolume)
         [self setVolume:1];
     else
         [self setVolume:0.0];
+#endif
 }
 
 -(void)removePlayerFromView
@@ -387,16 +392,6 @@ const unsigned int kplayPauseBtnSide  = 27;
     
     if(self.autohideToolbar) [self hideSliderAfter:2.0];
     
-
-#ifdef PresiseSeekTRIAL
-    if(videoSlider.value > CMTimeGetSeconds([self.player currentTime]))
-    {
-        freezeSlider = YES;
-        double diff = videoSlider.value - CMTimeGetSeconds([self.player currentTime]) ;
-        [self performSelector:@selector(pause) withObject:nil afterDelay:diff];
-        [self play];
-    }
-#else
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
         [UIView animateWithDuration:0.3 animations:^{
@@ -407,31 +402,20 @@ const unsigned int kplayPauseBtnSide  = 27;
     {
         [videoSlider setValue:CMTimeGetSeconds([self.player currentTime]) animated:YES];
     }
-#endif
     if(playing)
         [self.player play];
 }
 
 -(void)videoSliderValueChanged
 {
-#ifdef PresiseSeekTRIAL
-    [self.player seekToTime:CMTimeMakeWithSeconds(videoSlider.value, NSEC_PER_SEC) toleranceBefore:kCMTimeIndefinite toleranceAfter:kCMTimeZero];
-    
-#else
+
     [self.player seekToTime:CMTimeMakeWithSeconds(videoSlider.value, NSEC_PER_SEC) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeIndefinite];
-#endif
     shouldStartFromBegining = NO;
 }
 
 -(void)updateSlider
 {
-#ifdef PresiseSeekTRIAL
-    if(!freezeSlider)
-        videoSlider.value = CMTimeGetSeconds([self.player currentTime]);
-    
-#else
     videoSlider.value = CMTimeGetSeconds([self.player currentTime]);
-#endif
 }
 
 -(void)hideSliderAfter:(float)Seconds
@@ -502,10 +486,6 @@ const unsigned int kplayPauseBtnSide  = 27;
 {
     if(self.displayingVideo)
     {
-#ifdef PresiseSeekTRIAL
-        if(freezeSlider)
-            [layer removeFromSuperlayer];
-#endif
 #ifdef SHOW_HUD_PLAY
         [activity showActivityInView:_videoPlayerView withText:@"Playing Test..."];
 #endif
@@ -532,12 +512,6 @@ const unsigned int kplayPauseBtnSide  = 27;
             TimerForSeekBar = nil;
         }
     }
-#ifdef PresiseSeekTRIAL
-    if(freezeSlider)
-    {
-        freezeSlider = NO;
-    }
-#endif
 }
 
 -(void)PlayorPause
@@ -568,9 +542,19 @@ const unsigned int kplayPauseBtnSide  = 27;
             [videoSlider setValue:CMTimeGetSeconds([self.player currentTime]) animated:YES];
     }
 }
-
+#ifdef NEW_MUTE_UNMUTE
+-(void)updateMuteUnmuteBtn
+{
+    UIImage *muteBtnImage = self.videoMuted?muteImage:unmuteImage;
+    if(muteOrUnmute)
+        [muteOrUnmute setImage:muteBtnImage forState:UIControlStateNormal];
+}
+#endif
 -(void)muteOrUnmuteBtnAction:(id)sender
 {
+#ifdef NEW_MUTE_UNMUTE
+    self.videoMuted?[self unmuteAudio]:[self muteAudio];
+#else
     if(self.videoMuted)
     {
         [self unmuteAudio];
@@ -584,6 +568,7 @@ const unsigned int kplayPauseBtnSide  = 27;
         [self muteAudio];
         [muteOrUnmute setImage:muteImage forState:UIControlStateNormal];
     }
+#endif
 }
 
 -(BOOL)isPlaying
@@ -623,6 +608,15 @@ const unsigned int kplayPauseBtnSide  = 27;
         }
     }
 }
+#pragma mark - getters
+#ifdef NEW_MUTE_UNMUTE
+-(BOOL)videoMuted
+{
+    if(!self.player)
+        return YES;
+    return [self.player isMuted];
+}
+#endif
 #pragma mark External Methods
 -(void)changePlayerFrametoFrame:(CGRect)newFrame animated:(BOOL)animate
 {

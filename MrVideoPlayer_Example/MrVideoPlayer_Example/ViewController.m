@@ -116,7 +116,7 @@
 -(void)playerDidPlayToEnd:(id)sender
 {
     NSLog(@"Player played till end");
-    [self.myPlayer play];
+    [self.myPlayer play]; //Playing video again when video ends (Playing in loop)
 }
 
 -(void)playerShouldPause
