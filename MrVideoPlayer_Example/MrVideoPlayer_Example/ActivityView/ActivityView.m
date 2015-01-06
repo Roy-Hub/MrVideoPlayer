@@ -8,11 +8,7 @@
 
 #import "ActivityView.h"
 
-#define ADJUST_WIDTH_HEIGHT
-
-#ifdef ADJUST_WIDTH_HEIGHT
 const CGFloat margin = 10.0;
-#endif
 
 @interface ActivityView()
 {
@@ -109,14 +105,6 @@ const CGFloat margin = 10.0;
 {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-#ifndef ADJUST_WIDTH_HEIGHT
-    CGSize size = [[self mesglabel]sizeThatFits:view.frame.size];
-    size.width = (size.width + 20 < view.frame.size.width)?size.width:(view.frame.size.width - 26);
-    
-    [widthConstraint setConstant:size.width];
-    [heightConstraint setConstant:70.0];
-#endif
-
     //Constaints for aligning it in center
     NSLayoutConstraint *horizontalCenterConstraint =
     [NSLayoutConstraint constraintWithItem:self
@@ -137,7 +125,6 @@ const CGFloat margin = 10.0;
     [view addConstraint:horizontalCenterConstraint];
     [view addConstraint:verticalCenterConstraint];
     
-#ifdef ADJUST_WIDTH_HEIGHT
     //horizontal Constrains for limiting width of hud
     NSLayoutConstraint *trailingMarginConstraint =
     [NSLayoutConstraint constraintWithItem:view
@@ -149,10 +136,8 @@ const CGFloat margin = 10.0;
                                   constant:8.0];
 
     [view addConstraint:trailingMarginConstraint];
-#endif
 }
 
-#ifdef ADJUST_WIDTH_HEIGHT
 /**
  *  Adjusts width and height of ActivityView (self) accoding to the width of text
  */
@@ -164,7 +149,6 @@ const CGFloat margin = 10.0;
     [widthConstraint setConstant:size.width + 2.0 * margin];
     [heightConstraint setConstant:70.0];
 }
-#endif
 +(void)setBorderForView:(UIView *)view
         withBorderWidth:(CGFloat)borderWidth
             BorderColor:(UIColor *)borderColor
@@ -232,9 +216,7 @@ const CGFloat margin = 10.0;
     [self.mesglabel setText:string];
     
     [self showInView:view];
-#ifdef ADJUST_WIDTH_HEIGHT
     [self adjustWidthAndHeight];
-#endif
     [self setConstraintsInSuperView:view];
     
     _isActivityViewVisible = YES;
